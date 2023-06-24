@@ -2,6 +2,7 @@
 import  { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import {db} from '../Connections/PlanetScaleDb'
+import NewAlert from './Alert';
 
 const SignUp = ({setIsLogin, setSignIn}) => {
 
@@ -14,6 +15,9 @@ const shiftToLogin = () =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [alertvarient, setVarient] = useState('Danger');
+  const [text, setText] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -35,15 +39,19 @@ const shiftToLogin = () =>{
 "INSERT INTO users (`username`, `email`, `contact`, `password`) VALUES (?, ?, ?, ?)";
  try {
      await db.execute(query, responseData);
-     setSignIn(true)
+    setShowAlert(true)
+    setVarient('primary')
+    setText('User created successfully')
  } catch (error) {
-    alert("User Already Exists");
-    setSignIn(false)
+  setShowAlert(true)
+  setVarient('danger')
+  setText('Check Input Fields')
  }
     
     }
   return (
     <div className=' bigSignUpDiv p-5'>
+    {showAlert && <NewAlert variant={alertvarient} text={text} setShowAlert={setShowAlert}/>}
     <div className=" mainFormDiv">
     <div className='d-flex'>
       <h1 className='text-center text-light mx-auto'>Sign Up</h1>
