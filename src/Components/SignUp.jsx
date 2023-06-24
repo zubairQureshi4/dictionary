@@ -45,7 +45,7 @@ const shiftToLogin = () =>{
  } catch (error) {
   setShowAlert(true)
   setVarient('danger')
-  setText('Check Input Fields')
+  setText('User Alredy Exists')
  }
     
     }
