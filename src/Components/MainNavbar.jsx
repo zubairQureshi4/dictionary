@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function MainNavbar({setSignIn, gotWord}) {
+function MainNavbar({setSignIn, gotWord, setProfile, profile}) {
   const [name, setName] = useState('')
   useEffect(()=>{
     const getData = async ()=>{
@@ -27,11 +27,11 @@ function MainNavbar({setSignIn, gotWord}) {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto">
-            <Nav>Word: {gotWord?.word}</Nav>
+            <Nav>Word: {gotWord}</Nav>
           </Nav>
           <NavDropdown title={name} id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.2">
-                Profile
+              <NavDropdown.Item onClick={()=>{setProfile(!profile)}}>
+                {profile ? 'Dictionary': 'Profile'}
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={logoutData}>
